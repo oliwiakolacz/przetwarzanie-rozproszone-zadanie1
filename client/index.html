@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>System Zgłoszeń – klient</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>System Zgłoszeń</h1>
+    <div id="user-box" class="hidden">
+      Zalogowany: <strong id="current-user"></strong>
+      <button id="logout-btn" class="secondary">Wyloguj</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Logowanie / Rejestracja -->
+    <section id="auth-section" class="card narrow">
+      <h2>Logowanie / Rejestracja</h2>
+      <form id="auth-form">
+        <label>Login <input id="username" required autocomplete="username"></label>
+        <label>Hasło <input id="password" type="password" required autocomplete="current-password"></label>
+        <div class="row">
+          <button type="submit" data-action="login">Zaloguj</button>
+          <button type="submit" data-action="register" class="secondary">Zarejestruj</button>
+        </div>
+      </form>
+      <p id="auth-msg" class="msg"></p>
+    </section>
+
+    <!-- Panel po zalogowaniu -->
+    <section id="app-section" class="hidden">
+      <nav class="tabs">
+        <button class="tab active" data-tab="tickets">Zgłoszenia (CRUD)</button>
+        <button class="tab" data-tab="logs">Logi systemu</button>
+      </nav>
+
+      <!-- Zgłoszenia -->
+      <div id="tab-tickets" class="tab-panel">
+        <div class="card">
+          <h2 id="form-title">Nowe zgłoszenie</h2>
+          <form id="ticket-form">
+            <input type="hidden" id="ticket-id">
+            <label>Tytuł <input id="ticket-title" required></label>
+            <label>Opis <textarea id="ticket-desc" rows="2"></textarea></label>
+            <label id="status-label" class="hidden">Status
+              <select id="ticket-status">
+                <option>nowe</option><option>w trakcie</option><option>zamknięte</option>
+              </select>
+            </label>
+            <div class="row">
+              <button type="submit" id="ticket-submit">Dodaj</button>
+              <button type="button" id="ticket-cancel" class="secondary hidden">Anuluj edycję</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="row between">
+            <h2>Lista zgłoszeń</h2>
+            <button id="refresh-tickets" class="secondary">Odśwież</button>
+          </div>
+          <table>
+            <thead><tr><th>#</th><th>Tytuł</th><th>Opis</th><th>Status</th><th>Autor</th><th>Akcje</th></tr></thead>
+            <tbody id="tickets-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Logi -->
+      <div id="tab-logs" class="tab-panel hidden">
+        <div class="card">
+          <div class="row between">
+            <h2>Logi systemu</h2>
+            <div class="row">
+              <select id="log-filter">
+                <option value="">wszystkie serwisy</option>
+                <option value="auth">auth</option>
+                <option value="tickets">tickets</option>
+              </select>
+              <button id="refresh-logs" class="secondary">Odśwież</button>
+            </div>
+          </div>
+          <table>
+            <thead><tr><th>#</th><th>Czas</th><th>Serwis</th><th>Akcja</th><th>Użytkownik</th><th>Szczegóły</th></tr></thead>
+            <tbody id="logs-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Podgląd ostatniego wywołania API -->
+    <section class="card">
+      <h2>Ostatnie wywołania API (najnowsze na górze)</h2>
+      <pre id="api-log">—</pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
