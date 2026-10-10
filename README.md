@@ -2,6 +2,9 @@
 
 Projekt z przedmiotu "Przetwarzanie rozproszone".
 
+## Opis 
+System obsługi zgłoszeń (CRUD) oparty na 4 serwisach: api-gateway, auth-service, tickets-service, logs-service i kliencie (aplikacja webowa). Komunikacja odbywa się przez api-gateway (założono że tylko ten serwis jest publiczny). Token JWT jest uzyskiwany podczas logowania użytkownika, trzymany jest w sessionStorage i dołączany do każdego żądania w nagłówku: Authorization: Bearer <token>.
+
 Technologie: Node.js 22, Express, SQLite (wbudowany moduł node:sqlite), JWT (jsonwebtoken), bcrypt (bcryptjs), http-proxy-middleware.
 
 Autor: Oliwia Kołacz
